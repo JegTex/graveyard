@@ -1,0 +1,99 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<title>Graveyard</title>
+<link rel="icon" href="/favicon.svg" type="image/svg+xml">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Geist:wght@400;500;600&family=Geist+Mono:wght@400;500&display=swap">
+</head>
+<body>
+<div class="app" id="app">
+  <aside class="side" id="side" aria-label="Library">
+    <div class="side-in">
+      <div class="brand"><svg viewBox="0 3 40 42" aria-hidden="true"><path d="M19.2871 13.4773H29.167L39.4287 23.6101L21.583 44.0271H11.2129L20.1426 33.8728H10.2627L0 23.74L17.8457 3.323H28.2158L19.2871 13.4773ZM10.2627 23.74L20.2803 33.7146L29.167 23.6101L19.1484 13.6335L10.2627 23.74Z"/></svg>Graveyard<small>by Prismatico</small></div>
+      <div class="sbox">
+        <svg class="i" viewBox="0 0 24 24"><circle cx="11" cy="11" r="7"/><path d="m20 20-3.5-3.5"/></svg>
+        <input id="q" type="search" placeholder="Search…" autocomplete="off" aria-label="Search sections">
+        <kbd>⌘K</kbd>
+      </div>
+      <nav class="nav" id="nav"></nav>
+      <button class="bury" id="buryBtn"><svg class="i" viewBox="0 0 24 24" style="stroke-width:2.2"><path d="M12 5v14M5 12h14"/></svg>Bury a section</button>
+      <div class="sidefoot" id="sidefoot">⌘V a Figma frame anywhere to bury it</div>
+    </div>
+  </aside>
+  <div class="scrim" id="scrim"></div>
+
+  <div class="main">
+    <div class="mtop">
+      <button class="ibtn" id="menuBtn" aria-label="Open menu"><svg class="i" viewBox="0 0 24 24"><path d="M4 7h16M4 12h16M4 17h16"/></svg></button>
+      <div class="brand"><svg viewBox="0 3 40 42" aria-hidden="true"><path d="M19.2871 13.4773H29.167L39.4287 23.6101L21.583 44.0271H11.2129L20.1426 33.8728H10.2627L0 23.74L17.8457 3.323H28.2158L19.2871 13.4773ZM10.2627 23.74L20.2803 33.7146L29.167 23.6101L19.1484 13.6335L10.2627 23.74Z"/></svg>Graveyard<small>by Prismatico</small></div>
+      <span class="sp"></span>
+      <button class="ibtn" id="mSearch" aria-label="Search"><svg class="i" viewBox="0 0 24 24"><circle cx="11" cy="11" r="7"/><path d="m20 20-3.5-3.5"/></svg></button>
+    </div>
+    <header class="phead">
+      <h1 id="h1"><span class="crumb">Sections / </span>All</h1>
+      <p id="sub">Every section a client didn’t pick, ready for its second chance.</p>
+    </header>
+    <div class="fbar">
+      <div class="drop"><button class="pill" id="colBtn" aria-expanded="false"></button><div class="panel" id="colPanel" hidden></div></div>
+      <div class="drop"><button class="pill" id="styBtn" aria-expanded="false"></button><div class="panel" id="styPanel" hidden></div></div>
+      <div class="drop"><button class="pill" id="yrBtn" aria-expanded="false"></button><div class="panel" id="yrPanel" hidden></div></div>
+      <span class="grow"></span>
+      <div class="drop"><button class="pill" id="sortBtn" aria-expanded="false"></button><div class="panel right" id="sortPanel" hidden></div></div>
+    </div>
+    <div class="actives" id="actives"></div>
+    <div id="out"></div>
+  </div>
+</div>
+
+<dialog id="detail" aria-labelledby="dTitle">
+  <div class="dhead"><h2 id="dTitle"></h2><button class="x" data-close aria-label="Close"><svg class="i" viewBox="0 0 24 24"><path d="M6 6l12 12M18 6 6 18"/></svg></button></div>
+  <div class="dbody">
+    <div class="viewer"><img id="dImg" alt=""></div>
+    <div class="dside">
+      <div class="row">
+        <button class="btn prime" id="dCopy"><svg class="i" viewBox="0 0 24 24"><rect x="8" y="8" width="12" height="12" rx="2"/><path d="M16 8V6a2 2 0 0 0-2-2H6a2 2 0 0 0-2 2v8a2 2 0 0 0 2 2h2"/></svg>Copy to Figma</button>
+        <a class="btn" id="dOpen" target="_blank" rel="noopener" title="Open the original frame in Figma"><svg class="i" viewBox="0 0 24 24"><path d="M14 4h6v6M20 4l-9 9M18 14v5a1 1 0 0 1-1 1H5a1 1 0 0 1-1-1V7a1 1 0 0 1 1-1h5"/></svg>Source</a>
+      </div>
+      <p class="hint">Then ⌘V on the Figma canvas. Tip: hover any card and press ⌘C.</p>
+      <div class="divider"></div>
+      <div id="dMeta" style="display:grid;gap:16px"></div>
+      <div class="row" id="dEditRow">
+        <button class="btn sm" id="dEdit">Edit</button>
+        <button class="btn sm danger" id="dDel">Delete</button>
+      </div>
+    </div>
+  </div>
+</dialog>
+
+<dialog id="bury" aria-labelledby="bTitle">
+  <div class="dhead"><h2 id="bTitle">Bury a section</h2><button class="x" data-close aria-label="Close"><svg class="i" viewBox="0 0 24 24"><path d="M6 6l12 12M18 6 6 18"/></svg></button></div>
+  <div class="dbody">
+    <div class="viewer" id="bViewer"></div>
+    <div class="dside">
+      <div class="status" id="bStatus"></div>
+      <form class="form" id="bForm">
+        <label class="f">Name<input id="fName" maxlength="80" placeholder="Split hero with product video"></label>
+        <label class="f">Section type<select id="fType"></select></label>
+        <div class="f">Colours<div class="pick" id="fCols"></div></div>
+        <div class="f">Style<div class="pick" id="fStys"></div></div>
+        <div class="row2">
+          <label class="f">Client<input id="fClient" maxlength="60" list="clientList"></label>
+          <label class="f">Year<input id="fYear" inputmode="numeric" maxlength="4"></label>
+        </div>
+        <datalist id="clientList"></datalist>
+        <label class="f">Project<input id="fProject" maxlength="80"></label>
+        <label class="f">Notes<textarea id="fNotes" maxlength="500" placeholder="Why it was rejected, what to watch when reusing…"></textarea></label>
+        <div class="row"><button class="btn prime" id="bSave" type="submit" disabled>Bury it</button></div>
+      </form>
+    </div>
+  </div>
+</dialog>
+<input type="file" id="bFile" accept="image/png,image/jpeg,image/webp" hidden>
+<div class="toast" id="toast" hidden role="status"></div>
+<script type="module" src="/src/main.js"></script>
+</body>
+</html>
