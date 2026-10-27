@@ -60,17 +60,20 @@ async function writeDoc(doc) {
   return { ...data, _url: r.url };
 }
 
+const noStore = () => Response.json({ error: 'Storage isn’t connected yet. In Vercel: Storage → Create → Blob → Connect, then redeploy.' }, { status: 503 });
 const strip = ({ _url, ...d }) => d;
 const validId = (id) => /^[a-f0-9]{16}$/.test(id || '');
 const ownFile = (id) => (b) => new RegExp(`^sections/${id}[-.]`).test(b.pathname);
 
 export async function GET() {
+  if (!process.env.BLOB_READ_WRITE_TOKEN) return noStore();
   const docs = await readAll();
   docs.sort((a, b) => (b.createdAt || 0) - (a.createdAt || 0));
   return Response.json(docs.map(strip), { headers: { 'cache-control': 'no-store' } });
 }
 
 export async function POST(request) {
+  if (!process.env.BLOB_READ_WRITE_TOKEN) return noStore();
   const body = await request.json();
   if (!isBlobUrl(body.thumb) || !isBlobUrl(body.payload)) return Response.json({ error: 'Missing preview or Figma layers.' }, { status: 400 });
   const now = Date.now();
@@ -87,6 +90,7 @@ export async function POST(request) {
 }
 
 export async function PUT(request) {
+  if (!process.env.BLOB_READ_WRITE_TOKEN) return noStore();
   const id = new URL(request.url).searchParams.get('id');
   if (!validId(id)) return Response.json({ error: 'Bad id.' }, { status: 400 });
   const body = await request.json();
@@ -108,6 +112,7 @@ export async function PUT(request) {
 }
 
 export async function DELETE(request) {
+  if (!process.env.BLOB_READ_WRITE_TOKEN) return noStore();
   const id = new URL(request.url).searchParams.get('id');
   if (!validId(id)) return Response.json({ error: 'Bad id.' }, { status: 400 });
   const current = (await readAll()).find((d) => d.id === id);
