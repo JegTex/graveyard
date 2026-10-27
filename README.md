@@ -8,7 +8,7 @@ No external APIs. Everything runs on Vercel's free plan with Vercel Blob for sto
 
 1. **Put the code on GitHub.** Create a new repo (e.g. `graveyard`) and push this folder to it.
 2. **Import it in Vercel.** Vercel dashboard → Add New → Project → pick the repo. Leave the build settings as detected (Vite) and click **Deploy**. The first deploy will load but can't save yet. That's expected.
-3. **Add storage.** In the new project: **Storage** tab → **Create** → **Blob** → name it `graveyard` → choose **Public** access if asked → **Connect** to the project for all environments. This adds `BLOB_READ_WRITE_TOKEN` automatically.
+3. **Add storage.** In the new project: **Storage** tab → **Create** → **Blob** → name it `graveyard` → choose **Public** access if asked → **Connect** to the project for all environments. Vercel links the store to the project automatically (you'll see `BLOB_STORE_ID` in its connections).
 4. **Set the passcode.** Project → **Settings** → **Environment Variables** → add `GRAVEYARD_PASSCODE` with the passcode you and your colleague will use. (Leave it out and the site is open to anyone with the link.)
 5. **Redeploy.** Deployments → latest → ⋯ → **Redeploy**. Environment changes only apply to new deploys.
 6. Send your colleague the URL and the passcode. The passcode is remembered for a year per browser.
@@ -30,7 +30,7 @@ No external APIs. Everything runs on Vercel's free plan with Vercel Blob for sto
 
 - `index.html`, `src/` — the app (plain JS, built with Vite).
 - `api/sections.js` — list, create, edit and delete sections. Each section is one JSON file in Blob storage.
-- `api/upload.js` — lets the browser upload previews and Figma layers straight to Blob storage.
+- `api/file.js` — stores previews and Figma layers in Blob storage (up to ~4.4 MB per file, Vercel's request limit).
 - `api/login.js`, `middleware.js`, `login.html` — the shared passcode gate.
 
 Local development: `npm install`, then `vercel dev` (needs the Vercel CLI and `vercel link`, so the Blob token is available).

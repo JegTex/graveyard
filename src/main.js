@@ -1,5 +1,4 @@
 import './style.css';
-import { upload } from '@vercel/blob/client';
 
 async function api(method,url,body){
   const r=await fetch(url,{method,headers:body?{'content-type':'application/json'}:undefined,body:body?JSON.stringify(body):undefined});
@@ -8,7 +7,14 @@ async function api(method,url,body){
   if(!r.ok)throw new Error((data&&data.error)||'Something went wrong ('+r.status+').');
   return data;
 }
-const put=(path,file)=>upload(path,file,{access:'public',handleUploadUrl:'/api/upload',contentType:file.type});
+async function put(path,file){
+  if(file.size>4.4*1024*1024)throw new Error('This section is over 4.4 MB, which is more than Vercel accepts in one go. Split or simplify the frame.');
+  const r=await fetch('/api/file?path='+encodeURIComponent(path),{method:'POST',headers:{'content-type':file.type||'application/octet-stream'},body:file});
+  if(r.status===401){location.href='/login.html';throw new Error('Enter the passcode first.')}
+  let d=null;try{d=await r.json()}catch(e){}
+  if(!r.ok)throw new Error((d&&d.error)||'Upload failed ('+r.status+').');
+  return d;
+}
 
 /* ---------- constants ---------- */
 const TYPES=['Hero','Nav','Features','About','Testimonials','Pricing','FAQ','CTA','Footer','Gallery','Contact','Other'];

@@ -2,8 +2,8 @@ import { next } from '@vercel/functions';
 import { isAuthed } from './lib/auth.js';
 
 export const config = {
-  // Everything except the login page, the login endpoint and the upload callback (which checks the cookie itself).
-  matcher: ['/((?!login\\.html|api/login|api/upload|favicon\\.svg).*)'],
+  // Everything except the login page, and the login endpoint.
+  matcher: ['/((?!login\\.html|api/login|favicon\\.svg).*)'],
 };
 
 export default async function middleware(request) {
