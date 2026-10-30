@@ -17,12 +17,12 @@ async function put(path,file){
 }
 
 /* ---------- constants ---------- */
-const TYPES=['Hero','Nav','Features','About','Testimonials','Pricing','FAQ','CTA','Footer','Gallery','Contact','Other'];
+const TYPES=['Hero','Nav','Features','About','Testimonials','Pricing','FAQ','CTA','Footer','Gallery','Contact','Full page','Other'];
 const COLOURS=[['Black','#141414'],['White','#FFFFFF'],['Grey','#9B9B97'],['Beige','#E5D8C2'],['Brown','#7A5236'],['Red','#D6372F'],['Orange','#EC7A2B'],['Yellow','#F2C94C'],['Green','#3C9A5F'],['Teal','#2A9D9A'],['Blue','#2F6FDE'],['Purple','#7D4FD1'],['Pink','#E46AA6']];
 const STYLES=['Minimal','Bold','Editorial','Corporate','Playful','Luxury','Tech','Organic','Brutalist','Retro','Photo-led','Type-led','Illustrated','3D','Dark','Light'];
 const SORTS=[['new','Newest first'],['old','Oldest first'],['az','Name A–Z']];
 const colHex=Object.fromEntries(COLOURS);
-const P={search:'<circle cx="11" cy="11" r="7"/><path d="m20 20-3.5-3.5"/>',all:'<path d="m12 3 9 5-9 5-9-5 9-5Z"/><path d="m3 13 9 5 9-5"/>',Hero:'<rect x="3" y="4" width="18" height="16" rx="2"/><path d="M7 10h8M7 14h5"/>',Nav:'<rect x="3" y="4" width="18" height="5" rx="1.5"/><path d="M7 13h10M7 17h6"/>',Features:'<rect x="4" y="4" width="7" height="7" rx="1.5"/><rect x="13" y="4" width="7" height="7" rx="1.5"/><rect x="4" y="13" width="7" height="7" rx="1.5"/><rect x="13" y="13" width="7" height="7" rx="1.5"/>',About:'<circle cx="12" cy="8" r="4"/><path d="M4 20a8 8 0 0 1 16 0"/>',Testimonials:'<path d="M21 12a8 8 0 0 1-11.6 7.1L4 20l1-4.6A8 8 0 1 1 21 12Z"/>',Pricing:'<path d="M3 12V4h8l10 10-8 8L3 12Z"/><circle cx="7.5" cy="8.5" r="1.2"/>',FAQ:'<circle cx="12" cy="12" r="9"/><path d="M9.5 9.5a2.5 2.5 0 1 1 3.5 2.3c-.6.3-1 .9-1 1.6v.6M12 17h.01"/>',CTA:'<path d="m5 3 14 7-6 2-2 6L5 3Z"/>',Footer:'<rect x="3" y="4" width="18" height="16" rx="2"/><path d="M3 15h18M7 18h4"/>',Gallery:'<rect x="3" y="4" width="18" height="16" rx="2"/><circle cx="9" cy="10" r="2"/><path d="m21 16-5-5-9 9"/>',Contact:'<rect x="3" y="5" width="18" height="14" rx="2"/><path d="m3 7 9 6 9-6"/>',Other:'<circle cx="6" cy="12" r="1.3"/><circle cx="12" cy="12" r="1.3"/><circle cx="18" cy="12" r="1.3"/>',palette:'<path d="M12 3a9 9 0 1 0 0 18c1.1 0 1.6-.9 1.2-1.8-.5-1-.2-2.2 1.2-2.2H17a4 4 0 0 0 4-4c0-5.5-4-10-9-10Z"/><circle cx="7.5" cy="11" r="1"/><circle cx="10" cy="7" r="1"/><circle cx="15" cy="7.5" r="1"/>',sparkle:'<path d="M12 3v4M12 17v4M3 12h4M17 12h4M6 6l2.5 2.5M15.5 15.5 18 18M6 18l2.5-2.5M15.5 8.5 18 6"/>',cal:'<rect x="3" y="5" width="18" height="16" rx="2"/><path d="M3 10h18M8 3v4M16 3v4"/>',sort:'<path d="M7 4v16M3 16l4 4 4-4M17 20V4M13 8l4-4 4 4"/>',copy:'<rect x="8" y="8" width="12" height="12" rx="2"/><path d="M16 8V6a2 2 0 0 0-2-2H6a2 2 0 0 0-2 2v8a2 2 0 0 0 2 2h2"/>',ext:'<path d="M14 4h6v6M20 4l-9 9M18 14v5a1 1 0 0 1-1 1H5a1 1 0 0 1-1-1V7a1 1 0 0 1 1-1h5"/>',x:'<path d="M6 6l12 12M18 6 6 18"/>',chev:'<path d="m6 9 6 6 6-6"/>'};
+const P={search:'<circle cx="11" cy="11" r="7"/><path d="m20 20-3.5-3.5"/>',all:'<path d="m12 3 9 5-9 5-9-5 9-5Z"/><path d="m3 13 9 5 9-5"/>',Hero:'<rect x="3" y="4" width="18" height="16" rx="2"/><path d="M7 10h8M7 14h5"/>',Nav:'<rect x="3" y="4" width="18" height="5" rx="1.5"/><path d="M7 13h10M7 17h6"/>',Features:'<rect x="4" y="4" width="7" height="7" rx="1.5"/><rect x="13" y="4" width="7" height="7" rx="1.5"/><rect x="4" y="13" width="7" height="7" rx="1.5"/><rect x="13" y="13" width="7" height="7" rx="1.5"/>',About:'<circle cx="12" cy="8" r="4"/><path d="M4 20a8 8 0 0 1 16 0"/>',Testimonials:'<path d="M21 12a8 8 0 0 1-11.6 7.1L4 20l1-4.6A8 8 0 1 1 21 12Z"/>',Pricing:'<path d="M3 12V4h8l10 10-8 8L3 12Z"/><circle cx="7.5" cy="8.5" r="1.2"/>',FAQ:'<circle cx="12" cy="12" r="9"/><path d="M9.5 9.5a2.5 2.5 0 1 1 3.5 2.3c-.6.3-1 .9-1 1.6v.6M12 17h.01"/>',CTA:'<path d="m5 3 14 7-6 2-2 6L5 3Z"/>',Footer:'<rect x="3" y="4" width="18" height="16" rx="2"/><path d="M3 15h18M7 18h4"/>',Gallery:'<rect x="3" y="4" width="18" height="16" rx="2"/><circle cx="9" cy="10" r="2"/><path d="m21 16-5-5-9 9"/>',Contact:'<rect x="3" y="5" width="18" height="14" rx="2"/><path d="m3 7 9 6 9-6"/>','Full page':'<rect x="5" y="2" width="14" height="20" rx="2"/><path d="M5 7h14M8 11h8M8 14h8M8 17h5"/>',Other:'<circle cx="6" cy="12" r="1.3"/><circle cx="12" cy="12" r="1.3"/><circle cx="18" cy="12" r="1.3"/>',palette:'<path d="M12 3a9 9 0 1 0 0 18c1.1 0 1.6-.9 1.2-1.8-.5-1-.2-2.2 1.2-2.2H17a4 4 0 0 0 4-4c0-5.5-4-10-9-10Z"/><circle cx="7.5" cy="11" r="1"/><circle cx="10" cy="7" r="1"/><circle cx="15" cy="7.5" r="1"/>',sparkle:'<path d="M12 3v4M12 17v4M3 12h4M17 12h4M6 6l2.5 2.5M15.5 15.5 18 18M6 18l2.5-2.5M15.5 8.5 18 6"/>',cal:'<rect x="3" y="5" width="18" height="16" rx="2"/><path d="M3 10h18M8 3v4M16 3v4"/>',sort:'<path d="M7 4v16M3 16l4 4 4-4M17 20V4M13 8l4-4 4 4"/>',copy:'<rect x="8" y="8" width="12" height="12" rx="2"/><path d="M16 8V6a2 2 0 0 0-2-2H6a2 2 0 0 0-2 2v8a2 2 0 0 0 2 2h2"/>',ext:'<path d="M14 4h6v6M20 4l-9 9M18 14v5a1 1 0 0 1-1 1H5a1 1 0 0 1-1-1V7a1 1 0 0 1 1-1h5"/>',x:'<path d="M6 6l12 12M18 6 6 18"/>',chev:'<path d="m6 9 6 6 6-6"/>'};
 const icon=(n,cls)=>{const s=document.createElementNS('http://www.w3.org/2000/svg','svg');s.setAttribute('viewBox','0 0 24 24');s.setAttribute('class','i'+(cls?' '+cls:''));s.innerHTML=P[n]||'';return s};
 const $=id=>document.getElementById(id);
 const el=(tag,props={},...kids)=>{const n=document.createElement(tag);for(const[k,v]of Object.entries(props)){if(v==null)continue;if(k==='class')n.className=v;else if(k==='text')n.textContent=v;else if(k.startsWith('on'))n.addEventListener(k.slice(2),v);else n.setAttribute(k,v)}kids.flat().forEach(c=>c!=null&&c!==false&&n.append(c));return n};
@@ -132,7 +132,7 @@ function cardFor(s){
     onmouseenter:()=>{hovered=s;prefetch(s)},onmouseleave:()=>{if(hovered===s)hovered=null},onfocus:()=>{hovered=s;prefetch(s)}},
     thumb,
     el('div',{class:'cbody'},el('div',{class:'ctitle',text:s.name}),
-      el('div',{class:'cmeta'},el('span',{class:'who'},el('span',{class:'av',text:(s.client||s.type).slice(0,1)}),el('span',{text:[s.client||'No client',s.year].filter(Boolean).join(' · ')})),
+      el('div',{class:'cmeta'},el('span',{class:'who'},el('span',{class:'av',text:s.type.slice(0,1)}),el('span',{text:[s.project||s.type,s.year].filter(Boolean).join(' · ')})),
         el('span',{class:'dots'},s.colours.map(c=>el('span',{class:'sw',title:c,style:'background:'+colHex[c]}))))));
   return card;
 }
@@ -174,8 +174,7 @@ function openDetail(id,fromHash){
   const src=figmaUrl(s.fileKey,s.nodeId);$('dOpen').hidden=!src;if(src)$('dOpen').href=src;
   const meta=$('dMeta');meta.replaceChildren();
   const kv=(k,v)=>{if(v)meta.append(el('div',{class:'kv'},el('div',{class:'k',text:k}),typeof v==='string'?el('div',{class:'v',text:v}):v))};
-  kv('Client',[s.client,s.year].filter(Boolean).join(' · '));
-  kv('Project',s.project);
+  kv('Project',[s.project,s.year].filter(Boolean).join(' · '));
   if(s.colours.length)kv('Colours',el('div',{class:'tags'},s.colours.map(c=>el('span',{class:'tag'},el('span',{class:'sw',style:'background:'+colHex[c]}),c))));
   if(s.style.length)kv('Style',el('div',{class:'tags'},s.style.map(c=>el('span',{class:'tag',text:c}))));
   kv('Notes',s.notes);
@@ -217,10 +216,9 @@ function openBury(edit,initialHtml){
   $('bSave').textContent=edit?'Save changes':'Bury it';
   selCols.clear();selStys.clear();
   const s=edit||{};
-  $('fName').value=s.name||'';$('fType').value=s.type||'Hero';$('fClient').value=s.client||'';$('fYear').value=s.year||String(new Date().getFullYear());$('fProject').value=s.project||'';$('fNotes').value=s.notes||'';
+  $('fName').value=s.name||'';$('fType').value=s.type||'Hero';$('fYear').value=s.year||String(new Date().getFullYear());$('fProject').value=s.project||'';$('fNotes').value=s.notes||'';
   (s.colours||[]).forEach(c=>selCols.add(c));(s.style||[]).forEach(c=>selStys.add(c));
   pickChips();
-  $('clientList').replaceChildren(...[...new Set(all.map(x=>x.client).filter(Boolean))].map(c=>el('option',{value:c})));
   renderBury();
   show($('bury'));
   if(initialHtml)takeFigma(initialHtml);
@@ -292,7 +290,7 @@ $('bViewer').addEventListener('drop',e=>{e.preventDefault();const f=[...e.dataTr
 
 $('bForm').addEventListener('submit',async e=>{
   e.preventDefault();if(D.saving)return;
-  const fields={name:$('fName').value.trim()||'Untitled section',type:$('fType').value,colours:[...selCols],style:[...selStys],client:$('fClient').value.trim(),year:$('fYear').value.trim(),project:$('fProject').value.trim(),notes:$('fNotes').value.trim(),fileKey:D.fileKey||'',nodeId:D.nodeId||'',link:figmaUrl(D.fileKey,D.nodeId)};
+  const fields={name:$('fName').value.trim()||'Untitled section',type:$('fType').value,colours:[...selCols],style:[...selStys],client:D.editing?.client||'',year:$('fYear').value.trim(),project:$('fProject').value.trim(),notes:$('fNotes').value.trim(),fileKey:D.fileKey||'',nodeId:D.nodeId||'',link:figmaUrl(D.fileKey,D.nodeId)};
   D.saving=true;renderBury();const btn=$('bSave'),lbl=btn.textContent;btn.textContent='Saving…';
   try{
     const ext=D.img&&D.img.type==='image/webp'?'webp':'jpg';

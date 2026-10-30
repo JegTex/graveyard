@@ -3,7 +3,7 @@ import { put, list, del } from '@vercel/blob';
 // Each section is one small JSON file in Blob storage: sections/<id>-<random>.json.
 // Edits write a new file and delete the old one, so no cached copy is ever served stale.
 
-const TYPES = ['Hero', 'Nav', 'Features', 'About', 'Testimonials', 'Pricing', 'FAQ', 'CTA', 'Footer', 'Gallery', 'Contact', 'Other'];
+const TYPES = ['Hero', 'Nav', 'Features', 'About', 'Testimonials', 'Pricing', 'FAQ', 'CTA', 'Footer', 'Gallery', 'Contact', 'Full page', 'Other'];
 const isBlobUrl = (u) => typeof u === 'string' && /^https:\/\/[a-z0-9]+\.public\.blob\.vercel-storage\.com\//i.test(u);
 const str = (v, n) => String(v ?? '').trim().slice(0, n);
 const arr = (v, n) => (Array.isArray(v) ? v.map((x) => str(x, 24)).filter(Boolean).slice(0, n) : []);
